@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strikers United | GERMAN BABIES Team Website</title>
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            color: #4e4e4e;
+            line-height: 1.5;
+        }
+
+        /* header / navigation */
+        .header {
+            background: linear-gradient(135deg, #0b3b2c 0%, #1a6d4c 100%);
+            color: white;
+            padding: 1.2rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            box-shadow: 0 8px 20px rgba(0,40,20,0.2);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            font-size: 2.5rem;
+            filter: drop-shadow(2px 4px 4px rgba(0,0,0,0.3));
+        }
+
+        .team-name h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .team-name span {
+            font-size: 0.9rem;
+            font-weight: 400;
+            opacity: 0.9;
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            font-weight: 600;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 0.5rem 0.2rem;
+            border-bottom: 3px solid transparent;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            border-bottom-color: #ffd966;
+            transform: translateY(-2px);
+        }
+
+        /* hero section */
+        .hero {
+            background: linear-gradient(rgba(0, 30, 20, 0.75), rgba(0, 20, 15, 0.8)), 
+                        url('https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center 30%;
+            min-height: 380px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 3rem 2rem;
+            border-bottom: 5px solid #eb0f0f;
+        }
+
+        .hero-content h2 {
+            font-size: 3.3rem;
+            font-weight: 800;
+            text-shadow: 3px 3px 0 #1a4d3e;
+            letter-spacing: 2px;
+        }
+
+        .hero-content p {
+            font-size: 1.4rem;
+            max-width: 700px;
+            margin: 1rem auto;
+            background: rgba(0,0,0,0.3);
+            padding: 0.5rem 2rem;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+        }
+
+        .btn {
+            display: inline-block;
+            background: #f4c542;
+            color: #0b3b2c;
+            font-weight: 700;
+            padding: 0.9rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin-top: 1.2rem;
+            box-shadow: 0 8px 0 #9e6924;
+            transition: 0.1s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(3px);
+            box-shadow: 0 5px 0 #9e6924;
+            background: #ffd966;
+        }
+
+        /* main container */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* section titles */
+        .section-title {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #0b3b2c;
+            border-left: 12px solid #f4c542;
+            padding-left: 1.5rem;
+            margin-bottom: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* cards: roster */
+        .roster-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .player-card {
+            background: white;
+            border-radius: 28px 28px 20px 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px -12px rgba(0, 50, 30, 0.25);
+            transition: 0.3s;
+            border: 1px solid rgba(0,80,50,0.1);
+        }
+
+        .player-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 25px 35px -10px #0b3b2c80;
+        }
+
+        .player-img {
+            height: 220px;
+            background: #2d5e4a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 5rem;
+            background: linear-gradient(145deg, #186049, #2b8c6b);
+        }
+
+        .player-info {
+            padding: 1.5rem 1.2rem 1.2rem;
+            text-align: center;
+        }
+
+        .player-name {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #0b3b2c;
+        }
+
+        .player-position {
+            display: inline-block;
+            background: #f4c542;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin: 0.6rem 0 0.8rem;
+            letter-spacing: 0.5px;
+            color: #1e3d2f;
+        }
+
+        .player-stats {
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px dashed #b9d8cb;
+            padding-top: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .stat span {
+            font-weight: 700;
+            color: #0b3b2c;
+            font-size: 1.2rem;
+            display: block;
+        }
+
+        /* schedule table */
+        .schedule-table {
+            background: white;
+            border-radius: 30px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0, 30, 15, 0.1);
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .schedule-table th {
+            background: #0b3b2c;
+            color: white;
+            padding: 1rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .schedule-table td {
+            padding: 1.2rem 1rem;
+            border-bottom: 1px solid #c0dfd1;
+            font-weight: 500;
+        }
+
+        .schedule-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .schedule-table .match-highlight {
+            background: #fef7e7;
+            font-weight: 600;
+            color: #0b3b2c;
+        }
+
+        .badge {
+            background: #f4c542;
+            color: #1e3d2f;
+            font-weight: 700;
+            padding: 0.25rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            display: inline-block;
+        }
+
+        /* join section */
+        .join-section {
+            background: linear-gradient(130deg, #0f4635, #1f7257);
+            border-radius: 40px;
+            padding: 3rem 3rem;
+            color: white;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            margin: 3rem 0 1rem;
+            box-shadow: 0 25px 30px -15px #0b3b2c;
+        }
+
+        .join-text h3 {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .join-text p {
+            font-size: 1.2rem;
+            max-width: 500px;
+            opacity: 0.9;
+        }
+
+        .join-btn {
+            background: white;
+            color: #0b3b2c;
+            padding: 1.1rem 3rem;
+            border-radius: 60px;
+            font-weight: 800;
+            font-size: 1.3rem;
+            text-decoration: none;
+            transition: 0.2s;
+            box-shadow: 0 8px 0 #b37b2e;
+        }
+
+        .join-btn:hover {
+            background: #f4c542;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 0 #9e6924;
+        }
+
+        /* footer */
+        .footer {
+            background: #132e24;
+            color: #d1e3db;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+            font-size: 1rem;
+            border-top: 5px solid #f4c542;
+        }
+
+        .social-icons {
+            margin-bottom: 1.5rem;
+        }
+
+        .social-icons a {
+            color: white;
+            background: #2b6b4f;
+            width: 45px;
+            height: 45px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 5px;
+            font-size: 1.6rem;
+            transition: 0.2s;
+            text-decoration: none;
+        }
+
+        .social-icons a:hover {
+            background: #f4c542;
+            color: #0b3b2c;
+            transform: scale(1.1);
+        }
+
+        /* responsiveness */
+        @media (max-width: 700px) {
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1.2rem;
+            }
+            .hero-content h2 {
+                font-size: 2.4rem;
+            }
+            .join-section {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- header & navigation -->
+    <header class="header">
+        <div class="logo-area">
+            <div class="logo-icon"><i class="fas fa-futbol"></i></div>
+            <div class="team-name">
+                <h1>GERMAN BABIES</h1>
+                <span>Est. 2015 · SANTASI</span>
+            </div>
+        </div>
+        <nav class="nav-links">
+            <a href="#">HOME</a>
+            <a href="#">ROSTER</a>
+            <a href="#">SCHEDULE</a>
+            <a href="#">ACADEMY</a>
+            <a href="#">TICKETS</a>
+            <a href="#">APPROVALS</a>
+        </nav>
+    </header>
+
+    <!-- hero / banner -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>PRIDE · HEART · GLORY</h2>
+            <p>🏆 2024 National Champions · 15 matches unbeaten</p>
+            <a href="#" class="btn"><i class="fas fa-calendar-check" style="margin-right: 10px;"></i>NEXT MATCH VS RIVALS FC</a>
+        </div>
+    </section>
+
+    <!-- main container -->
+    <div class="container">
+        <!-- roster section -->
+        <div class="section-title">
+            <i class="fas fa-users" style="margin-right: 15px;"></i> THE SQUAD
+        </div>
+        <div class="roster-grid">
+            <!-- player 1 -->
+            <div class="player-card">
+                <div class="player-img"><i class="fas fa-user-astronaut"></i></div>
+                <div class="player-info">
+                    <div class="player-name">Marco Rossi</div>
+                    <div class="player-position">Forward · #9</div>
+                    <div class="player-stats">
+                        <div class="stat"><span>14</span> goals</div>
+                        <div class="stat"><span>7</span> assists</div>
+                    </div>
+                </div>
+            </div>
+            <!-- player 2 -->
+            <div class="player-card">
+                <div class="player-img"><i class="fas fa-user-ninja"></i></div>
+                <div class="playerS-info">
+                    <div class="player-name">OSEI LAMPARD</div>
+                    <div class="player-name">AVATAR ZUKO</div>
+                    <div class="player-name">MAKAYOKO</div>
+                    <div class="player-name">KOJO KWA</div>
+                    <div class="player-position">Midfielder · #8.<B>#6.#10>#12</div>
+                    <div class="player-stats">
+                        <div class="stat"><span>9</span> goals</div>
+                        <div class="stat"><span>12</span> assists</div>
+                    </div>
+                </div>
+            </div>
+            <!-- player 3 -->
+            <div class="player-card">
+                <div class="player-img"><i class="fas fa-user-shield"></i></div>
+                <div class="player-info">
+                    <div class="player-name">Carlos Mendez</div>
+                    <div class="player-position">Defender · #4</div>
+                    <div class="player-stats">
+                        <div class="stat"><span>3</span> goals</div>
+                        <div class="stat"><span>24</span> tackles</div>
+                    </div>
+                </div>
+            </div>
+            <!-- player 4 -->
+            <div class="player-card">
+                <div class="player-img"><i class="fas fa-user-graduate"></i></div>
+                <div class="player-info">
+                    <div class="player-name">James Okafor</div>
+                    <div class="player-position">Goalkeeper · #1</div>
+                    <div class="player-stats">
+                        <div class="stat"><span>8</span> clean</div>
+                        <div class="stat"><span>32</span> saves</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+             
+        <!-- schedule / fixtures -->
+        <div class="section-title" style="margin-top: 4rem;">
+            <i class="fas fa-calendar-alt" style="margin-right: 15px;"></i> UPCOMING MATCHES
+        </div>
+        <table class="schedule-table">
+            <thead>
+                <tr><th>Date</th><th>Opponent</th><th>Venue</th><th>Competition</th></tr>
+            </thead>
+            <tbody>
+                <tr class="match-highlight">
+                    <td><i class="far fa-clock" style="margin-right: 6px;"></i>Sat 24 May · 18:00</td>
+                    <td><strong>RIVALS FC</strong> <span class="badge" style="margin-left: 8px;">DERBY</span></td>
+                    <td><i class="fas fa-home"></i> Home (City Stadium)</td>
+                    <td>League</td>
+                </tr>
+                <tr>
+                    <td><i class="far fa-clock" style="margin-right: 6px;"></i>Sat 31 May · 16:30</td>
+                    <td>Northside Eagles</td>
+                    <td><i class="fas fa-plane"></i> Away</td>
+                    <td>League</td>
+                </tr>
+                <tr>
+                    <td><i class="far fa-clock" style="margin-right: 6px;"></i>Sat 7 Jun · 18:00</td>
+                    <td>Lake City FC</td>
+                    <td><i class="fas fa-home"></i> Home</td>
+                    <td>National Cup</td>
+                </tr>
+                <tr>
+                    <td><i class="far fa-clock" style="margin-right: 6px;"></i>Sat 14 Jun · 17:00</td>
+                    <td>Metro Strikers</td>
+                    <td><i class="fas fa-plane"></i> Away</td>
+                    <td>League</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- call to action / join -->
+        <div class="join-section">
+            <div class="join-text">
+                <h3>COME AND BE PART OF THE FAMILY</h3>
+                <p><i class="fas fa-ticket-alt" style="margin-right: 8px;"></i> Season tickets, academy trials & official merch</p>
+            </div>
+            <a href="#" class="join-btn">JOIN THE ULTRA <i class="fas fa-arrow-right" style="margin-left: 8px;"></i></a>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <footer class="footer">
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-x-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <p>© 2025 Strikers United Football Club. All rights reserved.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">📍 City Stadium, 123 Football Lane · #SUFC · #UnityWins</p>
+    </footer>
+
+    <!-- dummy "next match" interactive (just for show) -->
+    <div style="display: none;">interactive layer — all links are placeholders</div>
+</body>
+</html>

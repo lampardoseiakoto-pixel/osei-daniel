@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classroom admission · student portal</title>
+    <!-- Google Font & simple CSS reset -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f1f5f9;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            line-height: 1.5;
+            color: #0f172a;
+        }
+
+        .main-card {
+            max-width: 1200px;
+            width: 100%;
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* header */
+        .header {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: white;
+            padding: 2rem 2.5rem;
+        }
+
+        .header h1 {
+            font-weight: 600;
+            font-size: 2.2rem;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .header h1 span {
+            background: #fbbf24;
+            color: #0f172a;
+            font-size: 1.4rem;
+            font-weight: 600;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            margin-top: 0.5rem;
+        }
+
+        /* two column layout */
+        .columns {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .form-section {
+            flex: 1 1 380px;
+            background: #ffffff;
+            padding: 2rem 2rem 2.5rem;
+            border-right: 1px solid #e2e8f0;
+        }
+
+        .list-section {
+            flex: 2 1 500px;
+            background: #f8fafc;
+            padding: 2rem 2rem 2.5rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.75rem;
+        }
+        .section-title i {
+            font-size: 1.5rem;
+            color: #2563eb;
+        }
+
+        .form-row {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #334155;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .required-star {
+            color: #dc2626;
+            margin-left: 2px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 18px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            background: white;
+            transition: 0.2s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+        }
+
+        .inline-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .inline-group .form-row {
+            flex: 1 1 120px;
+        }
+
+        .btn-submit {
+            background: #0f172a;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.15s;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            box-shadow: 0 8px 20px -8px #0f172a80;
+        }
+
+        .btn-submit:hover {
+            background: #1e293b;
+            transform: scale(1.01);
+        }
+
+        .stats-bar {
+            background: #e9eef3;
+            padding: 0.9rem 1.5rem;
+            border-radius: 60px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .badge {
+            background: #2563eb;
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+        }
+
+        .student-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+
+        .student-item {
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            border: 1px solid #dee7ef;
+            transition: 0.1s;
+        }
+
+        .student-item:hover {
+            background: #f1f5f9;
+            border-color: #b9cbdf;
+        }
+
+        .student-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .student-name {
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        .student-grade {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .empty-message {
+            text-align: center;
+            color: #64748b;
+            background: #f1f5f9;
+            padding: 2.5rem 1rem;
+            border-radius: 48px;
+            font-style: italic;
+            border: 2px dashed #cbd5e1;
+        }
+
+        .delete-btn {
+            background: none;
+            border: 1.5px solid #e2e8f0;
+            color: #475569;
+            font-size: 1.2rem;
+            line-height: 1;
+            width: 36px;
+            height: 36px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.1s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+        }
+
+        .delete-btn:hover {
+            background: #fee2e2;
+            border-color: #ef4444;
+            color: #b91c1c;
+        }
+
+        .footer-note {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #64748b;
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 1.2rem;
+        }
+
+        .footer-note a {
+            color: #0f172a;
+            text-decoration: none;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+<div class="main-card">
+    <div class="header">
+        <h1>
+            📚 class admit
+            <span>2026</span>
+        </h1>
+        <p>Register new students in 3A12 · view & and get A1 assured</p>
+    </div>
+
+    <div class="columns">
+        <!-- LEFT: admission form -->
+        <div class="form-section">
+            <div class="section-title">
+                <span>✏️</span> admit new student
+            </div>
+
+            <form id="admissionForm">
+                <div class="form-row">
+                    <label>full name <span class="required-star">*</span></label>
+                    <input type="text" id="studentName" placeholder="e.g. Taylor Chen" autocomplete="off" required>
+                </div>
+
+                <div class="inline-group">
+                    <div class="form-row">
+                        <label>grade / class <span class="required-star">*</span></label>
+                        <select id="studentGrade" required>
+                            <option value="" disabled selected>– select –</option>
+                            <option value="Pre-K">Pre‑K</option>
+                            <option value="Kindergarten">Kindergarten</option>
+                            <option value="1st">1st grade</option>
+                            <option value="2nd">2nd grade</option>
+                            <option value="3rd">3rd grade</option>
+                            <option value="4th">4th grade</option>
+                            <option value="5th">5th grade</option>
+                            <option value="6th">6th grade</option>
+                            <option value="7th">7th grade</option>
+                            <option value="8th">8th grade</option>
+                            <option value="9th">9th grade</option>
+                            <option value="10th">10th grade</option>
+                            <option value="11th">11th grade</option>
+                            <option value="12th">12th grade</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <label>age (optional)</label>
+                        <input type="number" id="studentAge" placeholder="5–18" min="3" max="99">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label>guardian email <span class="required-star">*</span></label>
+                    <input type="email" id="studentEmail" placeholder="parent@example.com" required>
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    <span>➕</span> admit student
+                </button>
+            </form>
+
+            <div class="footer-note" style="margin-top: 2rem; border-top: 0; padding-top: 0.5rem;">
+                ⚡ entries are saved only in this browser (demo)
+            </div>
+        </div>
+
+        <!-- RIGHT: enrolled list -->
+        <div class="list-section">
+            <div class="stats-bar">
+                <span>📋 enrolled students</span>
+                <span class="badge" id="studentCount">0</span>
+            </div>
+
+            <div id="studentListContainer" class="student-list">
+                <!-- dynamic content from javascript -->
+                <div class="empty-message" id="emptyListMsg">
+                    ✨ no students yet — use the form to admit someone
+                </div>
+            </div>
+
+            <!-- optional hint -->
+            <div style="margin-top: 1.2rem; font-size: 0.9rem; color: #64748B; display: flex; gap: 1rem; align-items: center;">
+                <span style="display: flex; align-items: center; gap: 0.3rem;">🖱️ click <span class="delete-btn" style="display: inline-flex; width: 26px; height: 26px; font-size: 1rem;">✕</span> to remove</span>
+                <span>💾 local storage remembers them</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // ----- state & references -----
+        let students = [];
+
+        const STORAGE_KEY = 'classroom_admit_students';
+
+        // DOM elements
+        const form = document.getElementById('admissionForm');
+        const nameInput = document.getElementById('studentName');
+        const gradeSelect = document.getElementById('studentGrade');
+        const ageInput = document.getElementById('studentAge');
+        const emailInput = document.getElementById('studentEmail');
+        const studentListDiv = document.getElementById('studentListContainer');
+        const emptyMsg = document.getElementById('emptyListMsg');
+        const countSpan = document.getElementById('studentCount');
+
+        // ----- helpers -----
+        function loadFromStorage() {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            if (stored) {
+                try {
+                    students = JSON.parse(stored);
+                    // basic validation: ensure it's an array
+                    if (!Array.isArray(students)) students = [];
+                } catch (e) {
+                    students = [];
+                }
+            } else {
+                // preload one example student (optional, but makes interface friendly)
+                students = [
+                    {
+                        id: 'ex1',
+                        name: 'Alex Rivera',
+                        grade: '5th',
+                        age: 10,
+                        email: 'a.rivera@example.com'
+                    },
+                    {
+                        id: 'ex2',
+                        name: 'Jordan Lee',
+                        grade: 'Kindergarten',
+                        age: 5,
+                        email: 'jordan.lee@example.com'
+                    }
+                ];
+            }
+            // ensure every student has an id (for keys)
+            students = students.map(s => ({
+                id: s.id || 'id_' + Math.random().toString(36).substr(2, 9),
+                name: s.name || 'unknown',
+                grade: s.grade || '—',
+                age: s.age || null,
+                email: s.email || ''
+            }));
+        }
+
+        function saveToStorage() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(students));
+        }
+
+        // render the list + counter
+        function renderList() {
+            // clear container, but preserve empty message element (we will remove & re-add if needed)
+            studentListDiv.innerHTML = ''; 
+
+            if (students.length === 0) {
+                // show empty message
+                studentListDiv.appendChild(emptyMsg);
+                countSpan.innerText = '0';
+                return;
+            }
+
+            // remove empty msg if it's still there (it might be appended)
+            if (emptyMsg.parentNode) emptyMsg.remove();
+
+            // sort maybe by name
+            const sorted = [...students].sort((a,b) => a.name.localeCompare(b.name));
+
+            sorted.forEach(student => {
+                const item = document.createElement('div');
+                item.className = 'student-item';
+                item.dataset.id = student.id;
+
+                // left side: info
+                const infoDiv = document.createElement('div');
+                infoDiv.className = 'student-info';
+
+                const nameSpan = document.createElement('span');
+                nameSpan.className = 'student-name';
+                nameSpan.innerText = student.name;
+
+                const gradeSpan = document.createElement('span');
+                gradeSpan.className = 'student-grade';
+                gradeSpan.innerText = student.grade;
+
+                const detailSpan = document.createElement('span');
+                detailSpan.style.fontSize = '0.85rem';
+                detailSpan.style.color = '#475569';
+                // show age if present, else only email preview
+                if (student.age) {
+                    detailSpan.innerText = `${student.age} yrs · ${student.email}`;
+                } else {
+                    detailSpan.innerText = `${student.email}`;
+                }
+
+                infoDiv.appendChild(nameSpan);
+                infoDiv.appendChild(gradeSpan);
+                infoDiv.appendChild(detailSpan);
+
+                // delete button
+                const delBtn = document.createElement('button');
+                delBtn.className = 'delete-btn';
+                delBtn.setAttribute('aria-label', 'remove student');
+                delBtn.innerHTML = '✕';
+                delBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    removeStudentById(student.id);
+                });
+
+                item.appendChild(infoDiv);
+                item.appendChild(delBtn);
+                studentListDiv.appendChild(item);
+            });
+
+            // update counter
+            countSpan.innerText = students.length;
+        }
+
+        // remove by id
+        function removeStudentById(id) {
+            students = students.filter(s => s.id !== id);
+            saveToStorage();
+            renderList();
+        }
+
+        // add new student from form
+        function addStudentFromForm(event) {
+            event.preventDefault();
+
+            // basic required fields
+            const name = nameInput.value.trim();
+            const grade = gradeSelect.value;
+            const email = emailInput.value.trim();
+
+            if (!name || !grade || !email) {
+                alert('Please fill in all required fields (name, grade, email).');
+                return;
+            }
+
+            // simple email check (must contain @ and .)
+            if (!email.includes('@') || !email.includes('.')) {
+                alert('Enter a valid email address (e.g., name@domain.com).');
+                return;
+            }
+
+            const age = ageInput.value ? parseInt(ageInput.value, 10) : null;
+            if (ageInput.value && (age < 3 || age > 99)) {
+                alert('Please enter a realistic age (3–99) or leave blank.');
+                return;
+            }
+
+            // create new student object
+            const newStudent = {
+                id: 'student_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
+                name: name,
+                grade: grade,
+                age: age,
+                email: email,
+            };
+
+            students.push(newStudent);
+            saveToStorage();
+
+            // reset form (keep grade placeholder)
+            nameInput.value = '';
+            gradeSelect.value = '';
+            ageInput.value = '';
+            emailInput.value = '';
+
+            // re-render list
+            renderList();
+        }
+
+        // initialize page
+        function init() {
+            loadFromStorage();
+            renderList();
+
+            // attach submit
+            form.addEventListener('submit', addStudentFromForm);
+        }
+
+        // start
+        init();
+    })();
+</script>
+<!-- small note: the empty message element is moved in/out of DOM, but its original place in html is not used after first render. That's fine. -->
+</body>
+</html>
